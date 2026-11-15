@@ -12,13 +12,24 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-        python-version: ["3.9", "3.12", "3.13"]
+        # Python 3.9 is no longer shipped for ubuntu-latest (26.04), so the
+        # minimum supported version is pinned to the 22.04 image.
+        include:
+          - { os: ubuntu-22.04, python: "3.9" }
+          - { os: ubuntu-latest, python: "3.12" }
+          - { os: ubuntu-latest, python: "3.13" }
+          - { os: windows-latest, python: "3.9" }
+          - { os: windows-latest, python: "3.12" }
+          - { os: windows-latest, python: "3.13" }
+          - { os: macos-latest, python: "3.9" }
+          - { os: macos-latest, python: "3.12" }
+          - { os: macos-latest, python: "3.13" }
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: ${{ matrix.python }}
+          cache: pip
       - name: Install
         run: |
           python -m pip install --upgrade pip
