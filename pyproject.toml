@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "iosbackup-decrypt"
+version = "0.1.0"
+description = "Decrypt and browse encrypted iOS/iPadOS backups: Manifest.db and any app-container file, pure Python."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "WhiteAshura" }]
+keywords = ["ios", "iphone", "backup", "decrypt", "manifest.db", "forensics", "keybag"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Topic :: Security",
+  "Topic :: Utilities",
+]
+dependencies = ["pycryptodome>=3.15"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7", "build"]
+
+[project.scripts]
+iosbackup-decrypt = "iosbackup_crypto.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/WhiteAshura/ios-backup-decryptor"
+Repository = "https://github.com/WhiteAshura/ios-backup-decryptor"
+Issues = "https://github.com/WhiteAshura/ios-backup-decryptor/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
